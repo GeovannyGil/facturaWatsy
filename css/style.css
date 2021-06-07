@@ -1,0 +1,26 @@
+.contenedor-boton {
+  align-items: center;
+  display: flex;
+}
+
+.bg-watsy {
+  background-color: #FF6600;
+}
+
+.border-watsy {
+  border: 3px solid #FF6600;
+}
+
+.btn-outline-watsy {
+  color: #FF6600;
+  border-color: #FF6600;
+}
+
+.btn-outline-watsy:hover {
+  color: white;
+  background-color: #FF6600;
+}
+
+.remarcar {
+  border: 2px solid rgb(169, 22, 22);
+}

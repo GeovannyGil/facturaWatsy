@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Factura Watsy</title>
+  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> -->
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="shortcut icon" type="image/jpg" href="ico/icono.ico" />
+  <script type="text/javascript" src="js/sweetalert2.min.js"></script>
+  <link rel="stylesheet" href="css/sweetalert2.min.css">
+  <script defer src="js/all.min.js"></script>
+  <!--load all styles -->
+  <script src="js/jspdf.debug.js"></script>
+  <script type="text/javascript" src="js/pdf.js"></script>
+  <script type="text/javascript" src="js/numeroLetras.js"></script>
+
+</head>
+
+<body class="bg-dark container">
+  <div class="row">
+    <div class="col-md-4 text-center">
+      <img src="img/logo_negativo.png" class="my-4" height="135" alt="">
+    </div>
+    <div class="col-md-8 my-4">
+      <div class="row">
+        <div class="form-group col-md-4">
+          <label for="" class="text-white font-weight-bold">No.Pedido</label>
+          <input type="number" class="form-control" placeholder="00000" id="noPedido">
+        </div>
+        <div class="form-group col-md-4">
+          <label for="" class="text-white font-weight-bold">No. Interno</label>
+          <input type="number" class="form-control" placeholder="0000" id="noInterno">
+        </div>
+        <div class="form-group col-md-4">
+          <label for="" class="text-white font-weight-bold">Días Credito: </label>
+          <input type="number" class="form-control" placeholder="00" id="diasCredito">
+        </div>
+        <div class="form-group col-md-12 text-white">
+          <label for="exampleFormControlTextarea1" class="font-weight-bold">Nota de Factura</label>
+          <textarea class="form-control" id="nota" placeholder="Ingresa alguna nota" rows="1"></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  <main>
+    <div class="container px-0">
+      <div class="row">
+        <div class="col-md-6 px-0">
+          <section>
+            <div class="col-md-12">
+              <div class="card ">
+                <div class="card-header bg-watsy">
+                  <h3 class="card-title text-white">Datos del Comprador</h3>
+                </div>
+                <div class="card-body">
+                  <div class="row">
+                    <div class="form-group col-md-6">
+                      <label for="" class="font-weight-bold">NIT del Cliente</label>
+                      <input type="text" class="form-control" placeholder="NIT" id="nitCliente">
+                    </div>
+                    <div class="form-group col-md-6">
+                      <label for="" class="font-weight-bold">Teléfono</label>
+                      <input type="tel" class="form-control" placeholder="Ingrese el Teléfono" id="telefonoCliente">
+                    </div>
+                    <div class="form-group col-md-6">
+                      <label for="" class="font-weight-bold">Nombre del Cliente</label>
+                      <input type="text" class="form-control" placeholder="Nombre del cliente" id="nombreCliente">
+                    </div>
+                    <div class="form-group col-md-6">
+                      <label for="" class="font-weight-bold">Correo</label>
+                      <input type="email  " class="form-control" placeholder="Ingrese el Correo" id="correoCliente">
+                    </div>
+                    <div class="form-group col-md-12">
+                      <label for="" class="font-weight-bold">Dirección del Cliente</label>
+                      <input type="text" class="form-control" placeholder="Dirección del Cliente" id="direccionCliente">
+                    </div>
+                    <div class="form-group col-md-6">
+                      <label for="" class="font-weight-bold">Departamento Cliente:</label>
+                      <select name="" class="form-control" id="dpaDireccion">
+                      </select>
+                    </div>
+                    <div class="form-group col-md-6">
+                      <label for="" class="font-weight-bold">Municipio Cliente:</label>
+                      <select name="" class="form-control" id="munDireccion">
+                      </select>
+                    </div>
+                    <div class="form-group col-md-12">
+                      <label for="" class="font-weight-bold">Dirección de Entrega</label>
+                      <input type="text" class="form-control" placeholder="Ingrese Dirección Entrega"
+                        id="direccionECliente">
+                    </div>
+                    <div class="form-group col-md-6">
+                      <label for="" class="font-weight-bold">Departamento Entrega: </label>
+                      <select name="" class="form-control" id="dpaDireccion2">
+                      </select>
+                    </div>
+                    <div class="form-group col-md-6">
+                      <label for="" class="font-weight-bold">Municipio Entrega: </label>
+                      <select name="" class="form-control" id="munDireccion2">
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          <hr>
+          <div class="col-md-12">
+            <div class="card border-watsy p0">
+              <div class="card-body font-weight-bold p-2">
+                <div class="form-group col-md-12">
+                  <label for="" class="text-success">SubTotal:</label>
+                  <input type="number" min="0.00" max="10000.00" step="0.01" class="form-control" disabled
+                    id="subTotal">
+                </div>
+                </table>
+                <div class="form-group col-md-12">
+                  <label for="" class="text-danger ">(-) Descuento:</label>
+                  <input type="number" min="0.00" max="10000.00" step="0.01" class="form-control" disabled
+                    id="descuentoTotal">
+                </div>
+                </table>
+                <div class="form-group col-md-12">
+                  <label for="" class="text-success">Total:</label>
+                  <input type="number" min="0.00" max="10000.00" step="0.01" class="form-control" disabled
+                    id="sumaTotal">
+                </div>
+              </div>
+            </div>
+          </div>
+          <br>
+        </div>
+        <div class="col-md-6 ">
+          <section class="row">
+            <div class="col-md-12">
+              <div class="card">
+                <div class="card-header bg-watsy">
+                  <h3 class="card-title text-white">Datos del vendedor</h3>
+                </div>
+                <div class="card-body">
+                  <div class="row">
+                    <div class="form-group col-md-6">
+                      <label for="" class="font-weight-bold">Elaborado Por:</label>
+                      <select name="" class="form-control" id="nombreVendedor">
+                      </select>
+                    </div>
+                    <div class="form-group col-md-6">
+                      <label for="" class="font-weight-bold">Codigo Cliente</label>
+                      <input type="tel" class="form-control" placeholder="Codigo Cliente" id="codigoCliente">
+                    </div>
+                    <div class="form-group col-md-6">
+                      <label for="" class="font-weight-bold">Fecha de pedido</label>
+                      <input type="datetime-local" class="form-control" id="fechaHoraPedido">
+                    </div>
+                    <div class="form-group col-md-6">
+                      <label for="" class="font-weight-bold">Fecha de vencimiento</label>
+                      <input type="date" class="form-control" id="fechaVencimiento">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          <hr>
+          <section class="row justify-content-center">
+            <div class="col">
+              <div class="card">
+                <div class="card-header bg-watsy">
+                  <h3 class="card-title text-white">Agregar compra:</h3>
+                </div>
+                <div class="card-body">
+                  <form id="formProducto">
+                    <input type="hidden" value="0" id="codigoP">
+                    <div class="row">
+                      <div class="form-group col-md-6">
+                        <label for="" class="font-weight-bold">Cantidad</label>
+                        <input type="number" min="0.00" max="1000000.00" step="0.01"" class=" form-control"
+                          id="cantidad" placeholder="00">
+                      </div>
+                      <div class="form-group col-md-6">
+                        <label for="" class="font-weight-bold">P. Unitario</label>
+                        <input type="number" min="0.00" max="1000000.00" step="0.01" class="form-control"
+                          id="precioUnitario" placeholder="000.00">
+                      </div>
+                      <div class="form-group col-md-12">
+                        <label for="exampleFormControlTextarea1" class="font-weight-bold">Descripción</label>
+                        <textarea class="form-control" id="descripcion"
+                          placeholder="Ingresa la descripción del producto" rows="3"></textarea>
+                      </div>
+                      <div class="form-group col-md-6">
+                        <label for="" class="font-weight-bold">Descuento</label>
+                        <input type="number" min="0.00" max="1000000.00" step="0.01"" class=" form-control"
+                          id="descuento" placeholder="000.00">
+                      </div>
+                      <div class="form-group col-md-6">
+                        <label for="" class="font-weight-bold">Total</label>
+                        <input type="number" min="0.00" max="1000000.00" step="0.01"" class=" form-control" id="total"
+                          placeholder="000.00">
+                      </div>
+
+                      <div class="form-group col-md-12 mt-4">
+                        <button type="submit" class="btn btn-outline-watsy btn-block  font-weight-bold"
+                          id="btnAgregarProducto">Agregar</button>
+                      </div>
+                    </div>
+                  </form>
+                  <button class="btn btn-outline-watsy btn-block font-weight-bold" disabled
+                    id="btnGenerarFactura">Generar Factura</button>
+                  <button class="btn btn-outline-watsy btn-block font-weight-bold" disabled
+                    id="btnImprimirFactura">Imprimir Factura</button>
+                </div>
+              </div>
+            </div>
+          </section>
+
+        </div>
+      </div>
+
+    </div>
+    <hr>
+    <section class="row">
+      <div class="col">
+        <div class="table-responsive">
+          <table class="table text-center table-dark table-hover" id="tablaProductos">
+            <thead>
+              <tr>
+                <th>Cantidad</th>
+                <th>Descripción</th>
+                <th>P. Unitario</th>
+                <th>Descuento</th>
+                <th>P. Total</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="bodyTable">
+
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </section>
+    <hr>
+    <!-- <div class="container text-center">
+      <h1 class="text-white">Facturas Hechas</h1>
+    </div>
+    <section class="row">
+      <div class="col">
+        <div class="table-responsive">
+          <table class="table text-center table-dark table-hover" id="tablaProductos">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Descripción</th>
+                <th>Fecha</th>
+                <th>Total</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="bodyTableFacturas">
+
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </section>
+  </main>
+  <br> -->
+
+    <!-- Modal -->
+    <div class="modal fade" id="modalActualizar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Actualizar</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <input type="hidden" id="codigoPA">
+            <div class="form-group col-md-12">
+              <label for="">Cantidad</label>
+              <input type="number" class="form-control" id="cantidadU" placeholder="00">
+            </div>
+            <div class="form-group col-md-12">
+              <label for="exampleFormControlTextarea1">Descripción</label>
+              <textarea class="form-control" id="descripcionU" placeholder="Ingresa la descripción del producto"
+                rows="3"></textarea>
+            </div>
+            <div class="form-group col-md-12">
+              <label for="">P. Unitario</label>
+              <input type="number" min="0.00" max="10000.00" step="0.01" class="form-control" id="precioUnitarioU"
+                placeholder="000.00">
+            </div>
+            <div class="form-group col-md-12">
+              <label for="">Descuento</label>
+              <input type="number" min="0.00" max="10000.00" step="0.01" class="form-control" id="descuentoU"
+                placeholder="000.00">
+            </div>
+            <div class="form-group col-md-12">
+              <label for="">Total</label>
+              <input type="number" min="0.00" max="10000.00" step="0.01" class="form-control" id="totalU"
+                placeholder="000.00">
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            <button type="button" class="btn btn-primary" id="actualizar">Guardar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--  No. de documento interno
+  No. de Pedido
+ -->
+
+    <!--   subtotal
+  descuento
+  total
+  dias de credito
+  total en letras -->
+    <script src="js/function.js"></script>
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <!--  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
+  </script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+  </script> -->
+</body>
+
+</html>
