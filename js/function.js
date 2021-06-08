@@ -813,7 +813,12 @@ function guardarFactura() {
 }
 
 function borra() {
+  inputNoPedido.value = "";
+  inputNoInterno.value = "";
+  inputCredito.value = "";
+  inputNota.value = "";
   inputCodigoP.value = 0;
+  //datos extras
   subTotal = 0;
   descuentoFinal = 0;
   totalFinal = 0;
