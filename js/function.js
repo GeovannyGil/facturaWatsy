@@ -72,7 +72,6 @@ let arregloColaboradores = [
   }
 ];
 
-
 let arregloDepartamentos = [
   { id: 0, departamento: "--Seleccione--" },
   { id: 1, departamento: "Alta Verapaz" },
@@ -546,6 +545,7 @@ const llenarDepartamentos = (select, muniSelect) => {
 llenarColaboradores();
 llenarDepartamentos(selectDpaDireccion, selectMunDireccion);
 llenarDepartamentos(selectDpaDireccionE, selectMunDireccionE);
+
 
 const cargarDatos = (codigo) => {
   //buscar el objeto

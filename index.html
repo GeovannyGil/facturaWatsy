@@ -21,34 +21,49 @@
 
 </head>
 
-<body class="bg-dark container">
-  <div class="row">
-    <div class="col-md-4 text-center">
-      <img src="img/logo_negativo.png" class="my-4" height="135" alt="">
-    </div>
-    <div class="col-md-8 my-4">
-      <div class="row">
-        <div class="form-group col-md-4">
-          <label for="" class="text-white font-weight-bold">No.Pedido</label>
-          <input type="number" class="form-control" placeholder="00000" id="noPedido">
+<body class="bg-dark">
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-dark-black fixed-top">
+      <a class="navbar-brand text-white" href="#">Watsy</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+        aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
+        <div class="navbar-nav ">
+          <a class="nav-item nav-link active text-white" href="http://localhost/facturacion/index.html">Facturas
+            <span class="sr-only">(current)</span></a>
+          <a class="nav-item nav-link text-white" href="http://localhost/facturacion/cotizacion.html">Cotizaciones</a>
         </div>
-        <div class="form-group col-md-4">
-          <label for="" class="text-white font-weight-bold">No. Interno</label>
-          <input type="number" class="form-control" placeholder="0000" id="noInterno">
-        </div>
-        <div class="form-group col-md-4">
-          <label for="" class="text-white font-weight-bold">Días Credito: </label>
-          <input type="number" class="form-control" placeholder="00" id="diasCredito">
-        </div>
-        <div class="form-group col-md-12 text-white">
-          <label for="exampleFormControlTextarea1" class="font-weight-bold">Nota de Factura</label>
-          <textarea class="form-control" id="nota" placeholder="Ingresa alguna nota" rows="1"></textarea>
+      </div>
+    </nav>
+  </header>
+  <main class=" container mt-5">
+    <div class="row">
+      <div class="col-md-4 text-center">
+        <img src="img/logo_negativo.png" class="my-4" height="135" alt="">
+      </div>
+      <div class="col-md-8 my-4">
+        <div class="row">
+          <div class="form-group col-md-4">
+            <label for="" class="text-white font-weight-bold">No.Pedido</label>
+            <input type="number" class="form-control" placeholder="00000" id="noPedido">
+          </div>
+          <div class="form-group col-md-4">
+            <label for="" class="text-white font-weight-bold">No. Interno</label>
+            <input type="number" class="form-control" placeholder="0000" id="noInterno">
+          </div>
+          <div class="form-group col-md-4">
+            <label for="" class="text-white font-weight-bold">Días Credito: </label>
+            <input type="number" class="form-control" placeholder="00" id="diasCredito">
+          </div>
+          <div class="form-group col-md-12 text-white">
+            <label for="exampleFormControlTextarea1" class="font-weight-bold">Nota de Factura</label>
+            <textarea class="form-control" id="nota" placeholder="Ingresa alguna nota" rows="1"></textarea>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  </div>
-  <main>
     <div class="container px-0">
       <div class="row">
         <div class="col-md-6 px-0">
@@ -221,7 +236,6 @@
 
         </div>
       </div>
-
     </div>
     <hr>
     <section class="row">
@@ -248,92 +262,92 @@
     </section>
     <hr>
     <!-- <div class="container text-center">
-      <h1 class="text-white">Facturas Hechas</h1>
-    </div>
-    <section class="row">
-      <div class="col">
-        <div class="table-responsive">
-          <table class="table text-center table-dark table-hover" id="tablaProductos">
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Descripción</th>
-                <th>Fecha</th>
-                <th>Total</th>
-                <th>Acciones</th>
-              </tr>
-            </thead>
-            <tbody id="bodyTableFacturas">
-
-            </tbody>
-          </table>
-        </div>
-
+        <h1 class="text-white">Facturas Hechas</h1>
       </div>
-    </section>
+      <section class="row">
+        <div class="col">
+          <div class="table-responsive">
+            <table class="table text-center table-dark table-hover" id="tablaProductos">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Descripción</th>
+                  <th>Fecha</th>
+                  <th>Total</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody id="bodyTableFacturas">
+
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+      </section>
+    </main>
+    <br> -->
   </main>
-  <br> -->
-
-    <!-- Modal -->
-    <div class="modal fade" id="modalActualizar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-      aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Actualizar</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
+  <!-- Modal -->
+  <div class="modal fade" id="modalActualizar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Actualizar</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <input type="hidden" id="codigoPA">
+          <div class="form-group col-md-12">
+            <label for="">Cantidad</label>
+            <input type="number" class="form-control" id="cantidadU" placeholder="00">
           </div>
-          <div class="modal-body">
-            <input type="hidden" id="codigoPA">
-            <div class="form-group col-md-12">
-              <label for="">Cantidad</label>
-              <input type="number" class="form-control" id="cantidadU" placeholder="00">
-            </div>
-            <div class="form-group col-md-12">
-              <label for="exampleFormControlTextarea1">Descripción</label>
-              <textarea class="form-control" id="descripcionU" placeholder="Ingresa la descripción del producto"
-                rows="3"></textarea>
-            </div>
-            <div class="form-group col-md-12">
-              <label for="">P. Unitario</label>
-              <input type="number" min="0.00" max="10000.00" step="0.01" class="form-control" id="precioUnitarioU"
-                placeholder="000.00">
-            </div>
-            <div class="form-group col-md-12">
-              <label for="">Descuento</label>
-              <input type="number" min="0.00" max="10000.00" step="0.01" class="form-control" id="descuentoU"
-                placeholder="000.00">
-            </div>
-            <div class="form-group col-md-12">
-              <label for="">Total</label>
-              <input type="number" min="0.00" max="10000.00" step="0.01" class="form-control" id="totalU"
-                placeholder="000.00">
-            </div>
+          <div class="form-group col-md-12">
+            <label for="exampleFormControlTextarea1">Descripción</label>
+            <textarea class="form-control" id="descripcionU" placeholder="Ingresa la descripción del producto"
+              rows="3"></textarea>
           </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-            <button type="button" class="btn btn-primary" id="actualizar">Guardar</button>
+          <div class="form-group col-md-12">
+            <label for="">P. Unitario</label>
+            <input type="number" min="0.00" max="10000.00" step="0.01" class="form-control" id="precioUnitarioU"
+              placeholder="000.00">
           </div>
+          <div class="form-group col-md-12">
+            <label for="">Descuento</label>
+            <input type="number" min="0.00" max="10000.00" step="0.01" class="form-control" id="descuentoU"
+              placeholder="000.00">
+          </div>
+          <div class="form-group col-md-12">
+            <label for="">Total</label>
+            <input type="number" min="0.00" max="10000.00" step="0.01" class="form-control" id="totalU"
+              placeholder="000.00">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+          <button type="button" class="btn btn-primary" id="actualizar">Guardar</button>
         </div>
       </div>
     </div>
-    <!--  No. de documento interno
+  </div>
+  <!--  No. de documento interno
   No. de Pedido
  -->
 
-    <!--   subtotal
+  <!--   subtotal
   descuento
   total
   dias de credito
   total en letras -->
-    <script src="js/function.js"></script>
+  <script src="js/function.js"></script>
 
-    <script src="js/jquery.min.js"></script>
-    <script src="js/popper.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <!--  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+  <script src="js/jquery.min.js"></script>
+  <script src="js/popper.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <!--  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
     integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
   </script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
