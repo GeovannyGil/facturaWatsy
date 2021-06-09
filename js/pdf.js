@@ -213,3 +213,169 @@ function genPDF(datosFactura) {
   espacio = 386;
 
 }
+
+function genPDFCotizacion(datosCotizacion) {
+  let split;
+  var pdf = new jsPDF({
+    orientation: 'p',
+    unit: 'pt',
+    format: 'letter',
+    filters: ["ASCIIHexEncode"]
+  });
+
+  pdf.addFileToVFS("Poppins-Light.ttf", poppins);
+  pdf.addFont("Poppins-Light.ttf", "Poppins", "normal");
+
+  pdf.setFont("Poppins");
+
+  var width = pdf.internal.pageSize.getWidth();
+  var height = pdf.internal.pageSize.getHeight();
+
+  var image = new Image();
+  if (datosCotizacion['movil'] == "") {
+    image.src = 'http://localhost/facturacion/img/modeloCotizacion.jpg';
+  } else {
+    image.src = 'http://192.168.43.231/facturacion/img/modeloCotizacion.jpg';
+  }
+
+  pdf.addImage(image, 'PNG', 0, 0, width, height);
+
+
+  pdf.setFontSize("7");
+  if (datosCotizacion['noInterno'] == "") {
+    pdf.text("00000", 558, 36, null, null, "left");
+  } else {
+    pdf.text(datosCotizacion['noInterno'], 568, 36, null, null, "left");
+  }
+  //propiedades de texto
+  pdf.setFontSize("11");
+  pdf.setTextColor("white");
+  //texto
+  pdf.text("NO. DE COTIZACIÓN", 514, 53, null, null, "center");
+  //propiedades de texto
+  pdf.setFontSize("14");
+  pdf.setTextColor(160, 0, 0);
+  //texto
+  if (datosCotizacion['noPedido'] == "") {
+    pdf.text("No. 00000", 512, 76, null, null, "center");
+  } else {
+    pdf.text("No. " + datosCotizacion['noPedido'], 512, 76, null, null, "center");
+  }
+
+  pdf.setTextColor("black");
+  let fechaFormateada = datosCotizacion['fechaPedido'].replace(/\D/g, ' ');
+  let arrayFechaPedido = fechaFormateada.split(' ');
+  pdf.setFontSize("7");
+  pdf.text(arrayFechaPedido[3] + ":" + arrayFechaPedido[4], 422, 109, null, null, "center");
+  pdf.text(arrayFechaPedido[2], 465, 109, null, null, "center");
+  pdf.text(arrayFechaPedido[1], 511, 109, null, null, "center");
+  pdf.text(arrayFechaPedido[0], 558, 109, null, null, "center");
+
+  pdf.setFontSize("10");
+  pdf.text(datosCotizacion['colaborador'], 458, 196, null, null, "left");
+  pdf.text(datosCotizacion['fechaVencimiento'], 458, 212, null, null, "left");
+  pdf.text("Central", 458, 228, null, null, "left");
+  if (datosCotizacion['codigoCliente'] == "") {
+    pdf.text("--------", 458, 245, null, null, "left");
+  } else {
+    pdf.text("C-" + datosCotizacion['codigoCliente'], 458, 245, null, null, "left");
+  }
+
+  //Cliente
+  if (datosCotizacion['nombreCliente'] == "") {
+    pdf.text("Consumidor Final", 96, 196, null, null, "left");
+  } else {
+    pdf.text(datosCotizacion['nombreCliente'], 96, 196, null, null, "left");
+  }
+
+  if (datosCotizacion['telefonoCliente'] == "") {
+    pdf.text("---- ----", 96, 212, null, null, "left");
+  } else {
+    var arrayTelefono = datosCotizacion['telefonoCliente'].split("");
+
+    pdf.text(arrayTelefono[0] +
+      arrayTelefono[1] +
+      arrayTelefono[2] +
+      arrayTelefono[3] +
+      "-" +
+      arrayTelefono[4] +
+      arrayTelefono[5] +
+      arrayTelefono[6] +
+      arrayTelefono[7], 96, 212, null, null, "left");
+  }
+
+  if (datosCotizacion['correoCliente'] == "") {
+    pdf.text("-", 96, 228, null, null, "left");
+  } else {
+    pdf.text(datosCotizacion['correoCliente'], 96, 228, null, null, "left");
+  }
+
+  if (datosCotizacion['direccionCliente'] == "") {
+    pdf.text("Ciudad", 96, 245, null, null, "left");
+  } else {
+    pdf.text(datosCotizacion['direccionCliente'], 96, 245, null, null, "left");
+  }
+
+  pdf.text(datosCotizacion['municipio'] + ", " + datosCotizacion['departamento'], 96, 257, null, null, "left");
+
+  if (datosCotizacion['descripcionTrabajo'] == "") {
+    split = pdf.splitTextToSize("No se acepta ningun reclamo en un periodo mayor a 30 días calendario a la fecha de emisión", 544);
+    pdf.text(35, 303, split);
+  } else {
+    split = pdf.splitTextToSize(datosCotizacion['descripcionTrabajo'], 544);
+    pdf.text(35, 303, split);
+  }
+
+  pdf.setFontSize("8");
+  let espacio = 426;
+  for (ob of datosCotizacion['productos']) {
+    //contar letras
+    for (let i in ob.descripcion) {
+      conteoLetras = ob.descripcion.length;
+    }
+    pdf.text(String(ob.cant), 58, espacio, null, null, "center");
+
+    if (conteoLetras >= 75) {
+      split = pdf.splitTextToSize(ob.descripcion, 270);
+      pdf.text(96, espacio - 1, split);
+    } else {
+      split = ob.descripcion;
+      pdf.text(split, 96, espacio, null, null, "left");
+    }
+
+    pdf.text("Q", 357, espacio, null, null, "center");
+    pdf.text(ob.pUnitario, 388, espacio, null, null, "center");
+
+    pdf.text("Q", 432, espacio, null, null, "left");
+    pdf.text(ob.descuento, 479, espacio, null, null, "center");
+
+    pdf.text("Q", 518, espacio, null, null, "left");
+    pdf.text(ob.total, 552, espacio, null, null, "center");
+
+    if (conteoLetras >= 75) {
+      espacio = espacio + 22;
+    } else {
+      espacio = espacio + 14;
+    }
+
+  }
+
+  pdf.setFontSize("10");
+  pdf.text(datosCotizacion["subTotalF"], 577, 685, null, null, "right");
+  pdf.text(datosCotizacion["descuentoF"], 577, 703, null, null, "right");
+  pdf.setTextColor("white");
+  pdf.text(datosCotizacion["totalFinalF"], 577, 726, null, null, "right");
+
+
+  if (datosCotizacion['imprimir'] == "") {
+  } else {
+    pdf.autoPrint({ variant: 'non-conform' });
+  }
+
+  pdf.save(datosCotizacion["nombreCliente"] + " No.Pedido" + datosCotizacion["noPedido"] + ".pdf");
+
+  //Vaciar todo
+
+  espacio = 386;
+
+}
