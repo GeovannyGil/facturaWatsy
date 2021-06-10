@@ -372,7 +372,7 @@ function genPDFCotizacion(datosCotizacion) {
     pdf.autoPrint({ variant: 'non-conform' });
   }
 
-  pdf.save(datosCotizacion["nombreCliente"] + " No.Pedido" + datosCotizacion["noPedido"] + ".pdf");
+  pdf.save(datosCotizacion["nombreCliente"] + " No.Cotizacion" + datosCotizacion["noPedido"] + ".pdf");
 
   //Vaciar todo
 
