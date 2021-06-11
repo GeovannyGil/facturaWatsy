@@ -1,3 +1,33 @@
+/*Estilo de pagina de inicio*/
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+.max-width {
+  max-width: 1300px;
+  padding: 0 80px;
+  margin: auto;
+}
+
+div.contenedorIzquierdo,
+div.contenedorDerecho {
+  width: 50%;
+  height: 100%;
+}
+
+div.contenedorIzquierdo {
+  background-color: #FF6600;
+}
+
+/*Estilo otros*/
+
 .contenedor-boton {
   align-items: center;
   display: flex;
