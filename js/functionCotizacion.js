@@ -2,7 +2,7 @@
 const inputNoInterno = document.getElementById("noInterno");
 const inputNoPedido = document.getElementById("noPedido");
 const inputDescripcionTrabajo = document.getElementById("descripcionTrabajo");
-
+const inputCredito = document.getElementById("diasCredito");
 //Datos Vendendor
 const inputNombreCliente = document.getElementById("nombreCliente");
 const inputTelefonoCliente = document.getElementById("telefonoCliente");
@@ -772,6 +772,7 @@ function guardarFactura() {
       movil: esCelular,
       noInterno: inputNoInterno.value,
       noPedido: inputNoPedido.value,
+      diasCredito: inputCredito.value,
       descripcionTrabajo: inputDescripcionTrabajo.value,
       imprimir: imprimir,
       nombreCliente: inputNombreCliente.value,
@@ -805,6 +806,7 @@ function borra() {
   inputNoPedido.value = "";
   inputNoInterno.value = "";
   inputDescripcionTrabajo.value = "";
+  inputCredito.value = "";
   inputCodigoP.value = 0;
   //datos extras
   subTotal = 0;

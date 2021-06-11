@@ -360,6 +360,12 @@ function genPDFCotizacion(datosCotizacion) {
 
   }
 
+  if (datosCotizacion["diasCredito"] == "") {
+    pdf.text("-", 101, 182, null, null, "left");
+  } else {
+    pdf.text(datosCotizacion["diasCredito"], 101, 682, null, null, "left");
+  }
+
   pdf.setFontSize("10");
   pdf.text(datosCotizacion["subTotalF"], 577, 685, null, null, "right");
   pdf.text(datosCotizacion["descuentoF"], 577, 703, null, null, "right");
