@@ -5,7 +5,9 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cotizaciones Watsy</title>
+  <title>Factura Watsy</title>
+  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> -->
   <link rel="stylesheet" href="css/bootstrap.min.css">
   <link rel="stylesheet" href="css/style.css">
   <link rel="shortcut icon" type="image/jpg" href="ico/icono.ico" />
@@ -15,7 +17,8 @@
   <!--load all styles -->
   <script src="js/jspdf.debug.js"></script>
   <script type="text/javascript" src="js/pdf.js"></script>
-
+  <script type="text/javascript" src="js/numeroLetras.js"></script>
+  <script type="text/javascript" src="js/maxLength.js"></script>
 </head>
 
 <body class="bg-dark">
@@ -32,36 +35,36 @@
             <span class="sr-only">(current)</span></a>
           <a class="nav-item nav-link text-white px-2"
             href="http://localhost/facturacion/cotizacion.html">Cotizaciones</a>
+          <a class="nav-item nav-link text-white px-2" href="http://localhost/facturacion/index .html">Inicio</a>
         </div>
       </div>
     </nav>
   </header>
   <main class=" container mt-5">
-    <h1 class="text-white pt-4 display-3">Cotizaciones</h1>
-    <div class="row justify-content-center">
-      <!--       <div class="col-md-4 text-center">
+    <h1 class="text-white pt-4 display-3">Facturas</h1>
+    <div class="row">
+      <!--    <div class="col-md-4 text-center">
         <img src="img/logo_negativo.png" class="my-4" height="135" alt="">
       </div> -->
-      <div class="col-md-4 my-4">
+      <div class="col-md-12 my-4">
         <div class="row">
-          <div class="form-group col-md-12">
-            <label for="" class="text-white font-weight-bold">No.Cotización</label>
+          <div class="form-group col-md-4">
+            <label for="" class="text-white font-weight-bold">No.Pedido</label>
             <input type="number" class="form-control" placeholder="00000" id="noPedido">
           </div>
-          <div class="form-group col-md-6">
+          <div class="form-group col-md-4">
             <label for="" class="text-white font-weight-bold">No. Interno</label>
             <input type="number" class="form-control" placeholder="0000" id="noInterno">
           </div>
-          <div class="form-group col-md-6">
+          <div class="form-group col-md-4">
             <label for="" class="text-white font-weight-bold">Días Credito: </label>
             <input type="number" class="form-control" placeholder="00" id="diasCredito">
           </div>
+          <div class="form-group col-md-12 text-white">
+            <label for="exampleFormControlTextarea1" class="font-weight-bold">Nota de Factura</label>
+            <textarea class="form-control" id="nota" placeholder="Ingresa alguna nota" rows="1"></textarea>
+          </div>
         </div>
-      </div>
-      <div class="form-group col-md-8 text-white">
-        <label for="exampleFormControlTextarea1" class="font-weight-bold">Descripción del Trabajo</label>
-        <textarea class="form-control" id="descripcionTrabajo" maxlength="840" placeholder="Ingresa alguna descripción"
-          rows="6"></textarea>
       </div>
     </div>
     <div class="container px-0">
@@ -71,19 +74,23 @@
             <div class="col-md-12">
               <div class="card ">
                 <div class="card-header bg-watsy">
-                  <h3 class="card-title text-white">Datos del Solicitante</h3>
+                  <h3 class="card-title text-white">Datos del Comprador</h3>
                 </div>
                 <div class="card-body">
                   <div class="row">
-                    <div class="form-group col-md-12">
-                      <label for="" class="font-weight-bold">Nombre del Cliente</label>
-                      <input type="text" class="form-control" placeholder="Nombre del cliente" id="nombreCliente">
+                    <div class="form-group col-md-6">
+                      <label for="" class="font-weight-bold">NIT del Cliente</label>
+                      <input type="text" class="form-control" placeholder="NIT" id="nitCliente">
                     </div>
-                    <div class="form-group col-md-12">
+                    <div class="form-group col-md-6">
                       <label for="" class="font-weight-bold">Teléfono</label>
                       <input type="tel" class="form-control" placeholder="Ingrese el Teléfono" id="telefonoCliente">
                     </div>
-                    <div class="form-group col-md-12">
+                    <div class="form-group col-md-6">
+                      <label for="" class="font-weight-bold">Nombre del Cliente</label>
+                      <input type="text" class="form-control" placeholder="Nombre del cliente" id="nombreCliente">
+                    </div>
+                    <div class="form-group col-md-6">
                       <label for="" class="font-weight-bold">Correo</label>
                       <input type="email  " class="form-control" placeholder="Ingrese el Correo" id="correoCliente">
                     </div>
@@ -99,6 +106,21 @@
                     <div class="form-group col-md-6">
                       <label for="" class="font-weight-bold">Municipio Cliente:</label>
                       <select name="" class="form-control" id="munDireccion">
+                      </select>
+                    </div>
+                    <div class="form-group col-md-12">
+                      <label for="" class="font-weight-bold">Dirección de Entrega</label>
+                      <input type="text" class="form-control" placeholder="Ingrese Dirección Entrega"
+                        id="direccionECliente">
+                    </div>
+                    <div class="form-group col-md-6">
+                      <label for="" class="font-weight-bold">Departamento Entrega: </label>
+                      <select name="" class="form-control" id="dpaDireccion2">
+                      </select>
+                    </div>
+                    <div class="form-group col-md-6">
+                      <label for="" class="font-weight-bold">Municipio Entrega: </label>
+                      <select name="" class="form-control" id="munDireccion2">
                       </select>
                     </div>
                   </div>
@@ -137,7 +159,7 @@
             <div class="col-md-12">
               <div class="card">
                 <div class="card-header bg-watsy">
-                  <h3 class="card-title text-white">Datos del encargado</h3>
+                  <h3 class="card-title text-white">Datos del vendedor</h3>
                 </div>
                 <div class="card-body">
                   <div class="row">
@@ -207,9 +229,9 @@
                     </div>
                   </form>
                   <button class="btn btn-outline-watsy btn-block font-weight-bold" disabled
-                    id="btnGenerarCotizacion">Generar Cotización</button>
+                    id="btnGenerarFactura">Generar Factura</button>
                   <button class="btn btn-outline-watsy btn-block font-weight-bold" disabled
-                    id="btnImprimirCotizacion">Imprimir Cotización</button>
+                    id="btnImprimirFactura">Imprimir Factura</button>
                 </div>
               </div>
             </div>
@@ -219,7 +241,6 @@
       </div>
     </div>
     <hr>
-
     <section class="row">
       <div class="col">
         <div class="table-responsive">
@@ -239,9 +260,9 @@
             </tbody>
           </table>
         </div>
+
       </div>
     </section>
-
     <hr>
     <!-- <div class="container text-center">
         <h1 class="text-white">Facturas Hechas</h1>
@@ -315,11 +336,29 @@
       </div>
     </div>
   </div>
+  <!--  No. de documento interno
+  No. de Pedido
+ -->
+
+  <!--   subtotal
+  descuento
+  total
+  dias de credito
+  total en letras -->
+  <script src="js/function.js"></script>
+
   <script src="js/jquery.min.js"></script>
-  <script type="text/javascript" src="js/maxLength.js"></script>
-  <script src="js/functionCotizacion.js"></script>
   <script src="js/popper.min.js"></script>
   <script src="js/bootstrap.min.js"></script>
+  <!--  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
+  </script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+  </script> -->
 </body>
 
 </html>
