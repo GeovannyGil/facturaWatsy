@@ -46,12 +46,12 @@ div.margen-logo img {
   width: 10%;
 }
 
+
 div.contenedorIzquierdo,
 div.contendedorDerecho {
   width: 50%;
   height: 100%;
   display: flex;
-
   align-items: center;
 }
 
@@ -100,8 +100,14 @@ div.menu {
 
 div.btnPaginas {
   border-bottom: 2px solid #707070;
-  width: 80%px;
+  width: 100%;
   margin-top: 1em;
+  transition: all .1s ease-in-out;
+}
+
+div.btnPaginas.activeHover {
+  border-color: #FF6600;
+  transition: all .1s ease-in-out;
 }
 
 div.btnPaginas a {
@@ -110,8 +116,36 @@ div.btnPaginas a {
   font-family: "Poppins";
   font-weight: 400;
   font-size: 26px;
+  transition: all .1s ease-in-out;
 }
 
+a.btnInicio.activeHover {
+  color: #FF6600;
+  transition: all .1s ease-in-out;
+}
+
+
+@media (max-width: 1281px) {
+  img.logo {
+    width: 85%;
+  }
+
+  div.contenedorIzquierdo {
+    padding-right: 30px;
+  }
+
+  div.contendedorDerecho {
+    padding-left: 30px;
+  }
+
+  div.navegacion {
+    width: 85%;
+  }
+
+  div.barrita {
+    width: 80%;
+  }
+}
 
 /*Estilo otros*/
 
