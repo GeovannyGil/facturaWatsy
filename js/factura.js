@@ -6,6 +6,75 @@ const selectDpaDireccionE = document.getElementById("dpaDireccion2");
 const selectMunDireccionE = document.getElementById("munDireccion2");
 const inputDireccionECliente = document.getElementById("direccionECliente");
 
+function verDatosDocumento(noPedido, datos) {
+  console.log("hola soy el numero de pedido numero: " + noPedido);
+  //Llenar los Datos
+  //Datos de encabezado
+  inputNoPedido.value = datos.noPedido;
+  inputNoInterno.value = datos.noInterno;
+  inputCredito.value = datos.diasCredito;
+  inputNota.value = datos.nota;
+  //Datos del Cliente
+  inputNitCliente.value = datos.nitCliente;
+  inputTelefonoCliente.value = datos.telefonoCliente;
+  inputNombreCliente.value = datos.nombreCliente;
+  inputCorreoCliente.value = datos.correoCliente;
+  inputDireccionCliente.value = datos.direccionCliente;
+  buscarSelectDpa(selectDpaDireccion, datos.departamento, selectMunDireccion);
+  seleccionarInSelect(selectMunDireccion, datos.municipio);
+  buscarSelectDpa(selectDpaDireccionE, datos.departamentoE, selectMunDireccionE);
+  seleccionarInSelect(selectMunDireccionE, datos.municipioE);
+  inputDireccionECliente.value = datos.direccionECliente;
+  seleccionarInSelect(selectColaborador, datos.colaborador);
+  inputCodigoCliente.value = datos.codigoCliente;
+  inputFechaPedido.value = datos.fechaPedido;
+  inputFechaVencimiento.value = datos.fechaVencimiento;
+  arregloDetalle = datos.productos;
+  redibujarTabla(arregloDetalle);
+  btnGuardar.removeAttribute("disabled");
+  inputCodigoP.value = buscarIdMaxProductos(arregloDetalle);
+  subTotal = parseFloat(datos.subTotalF);
+  descuentoFinal = parseFloat(datos.descuentoF);
+  totalFinal = parseFloat(datos.totalFinalF);
+  inputSubTotal.value = datos.subTotalF;
+  inputDescuentoTotal.value = datos.descuentoF;
+  inputSumaTotal.value = datos.totalFinalF;
+}
+
+//para seleccionar el input
+function buscarIdMaxProductos() {
+  let idMax = 0;
+  for (ob of arregloDetalle) {
+    //contar letras
+    if (ob.codigo > idMax) {
+      idMax = ob.codigo;
+    }
+  }
+  console.log("Codigo de producto mayor " + idMax);
+  return idMax;
+}
+
+function seleccionarInSelect(InputSelect, datoBuscar) {
+  for (var i = 1; i < InputSelect.length; i++) {
+    if (InputSelect.options[i].text == datoBuscar) {
+      // seleccionamos el valor que coincide
+      InputSelect.selectedIndex = i;
+    }
+  }
+}
+
+function buscarSelectDpa(InputSelect, datoBuscar, InputSelectMun) {
+  for (var i = 1; i < InputSelect.length; i++) {
+    if (InputSelect.options[i].text == datoBuscar) {
+      // seleccionamos el valor que coincide
+      InputSelect.selectedIndex = i;
+      limpiarMunicipio(InputSelectMun);
+      ordenarMunicipio(datoBuscar, InputSelectMun);
+    }
+  }
+}
+
+
 const verificarFacturasLocalStorage = () => {
   const facturasLS = JSON.parse(localStorage.getItem("facturas"));
   facturas = facturasLS || [];
@@ -24,11 +93,20 @@ const verificarFacturasLocalStorage = () => {
     let tdAcciones = document.createElement("TD");
     let btnGenPDF = document.createElement("button");
     btnGenPDF.onclick = () => {
-      genPDF(detalle);
+      formatearJSON(detalle);
     };
+
     btnGenPDF.classList.add("btn", "btn-danger");
     btnGenPDF.innerText = "PDF";
+    let btnEditarDocumento = document.createElement("button");
+    btnEditarDocumento.onclick = () => {
+      verDatosDocumento(detalle.noPedido, detalle);
+    };
+    btnEditarDocumento.classList.add("btn", "btn-success");
+    btnEditarDocumento.innerText = "Editar Datos";
+
     tdAcciones.appendChild(btnGenPDF);
+    tdAcciones.appendChild(btnEditarDocumento);
     fila.appendChild(tdAcciones);
     tableFacturas.appendChild(fila);
   })
@@ -95,6 +173,7 @@ function borra() {
   inputNota.value = "";
   inputCodigoP.value = 0;
   //datos extras
+  arregloDetalle = [];
   subTotal = 0;
   descuentoFinal = 0;
   totalFinal = 0;

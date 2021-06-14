@@ -179,6 +179,10 @@ a.btnInicio.activeHover {
   display: flex;
 }
 
+.btn {
+  margin: 0 5px;
+}
+
 .font-poppins-h1 {
   font-family: 'Poppins-Bold';
 }

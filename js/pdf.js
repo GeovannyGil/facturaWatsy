@@ -9,7 +9,7 @@ const poppins = archivoTXT.responseText;
 let fechaFormateada;
 let arrayFechaPedido = [];
 let arrayTelefono = [];
-
+let letras;
 function formatearJSON(datosFactura) {
   if (datosFactura['noInterno'] == "") {
     datosFactura['noInterno'] = "-";
@@ -86,6 +86,13 @@ function formatearJSON(datosFactura) {
 
   let formateadoDescuentoF = datosFactura["descuentoF"].split(".");
   datosFactura["descuentoF"] = parseFloat(formateadoDescuentoF[0]).toLocaleString("en-US") + "." + formateadoDescuentoF[1];
+
+  letras = numeroALetras(parseFloat(datosFactura["totalFinalF"]), {
+    plural: "QUETZALES",
+    singular: "QUETZAL",
+    centPlural: "CENTAVOS",
+    centSingular: "CENTAVO"
+  });
 
   let formateadoTotalFinalF = datosFactura["totalFinalF"].split(".");
   datosFactura["totalFinalF"] = parseFloat(formateadoTotalFinalF[0]).toLocaleString("en-US") + "." + formateadoTotalFinalF[1];
@@ -219,13 +226,7 @@ function generarFactura(datosFactura) {
   }
 
 
-  let valor = parseFloat(datosFactura["totalFinalF"]);
-  let letras = numeroALetras(valor, {
-    plural: "QUETZALES",
-    singular: "QUETZAL",
-    centPlural: "CENTAVOS",
-    centSingular: "CENTAVO"
-  });
+
 
   pdf.text(letras, 86, 659, null, null, "left");
 

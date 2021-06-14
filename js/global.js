@@ -563,6 +563,7 @@ formProducto.onsubmit = (e) => {
     inputPrecioUnitario.classList.remove("remarcar");
     inputTotal.classList.remove("remarcar");
     inputCodigoP.value = +inputCodigoP.value + 1;
+    console.log(inputCodigoP.value);
     // Creando Objeto Detall
     if (inputDescuento.value == "") {
       inputDescuento.value = 0.0;
