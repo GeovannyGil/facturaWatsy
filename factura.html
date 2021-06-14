@@ -15,9 +15,9 @@
   <link rel="stylesheet" href="css/sweetalert2.min.css">
   <script defer src="js/all.min.js"></script>
   <!--load all styles -->
+  <script src="js/pdfobject.min.js"></script>
   <script src="js/jspdf.debug.js"></script>
   <script type="text/javascript" src="js/pdf.js"></script>
-  <script type="text/javascript" src="js/numeroLetras.js"></script>
   <script src="js/jquery.min.js"></script>
   <script type="text/javascript" src="js/maxLength.js"></script>
 </head>
@@ -229,10 +229,11 @@
                       </div>
                     </div>
                   </form>
-                  <button class="btn btn-outline-watsy btn-block font-weight-bold" disabled
-                    id="btnGenerarFactura">Generar Factura</button>
-                  <button class="btn btn-outline-watsy btn-block font-weight-bold" disabled
-                    id="btnImprimirFactura">Imprimir Factura</button>
+                  <button class="btn btn-outline-watsy btn-block font-weight-bold" disabled id="btnGenerarPDF">Generar
+                    Factura</button>
+                  <button class="btn btn-outline-watsy btn-block font-weight-bold" disabled id="btnImprimirPDF">Imprimir
+                    Factura</button>
+                  <button type="button" class="btn btn-primary" onclick="prePDF()">ver</button>
                 </div>
               </div>
             </div>
@@ -242,6 +243,7 @@
       </div>
     </div>
     <hr>
+    <div id="preview-pane" style="height: 650px;position:relative; z-index:999"></div>
     <section class="row">
       <div class="col">
         <div class="table-responsive">
@@ -265,6 +267,7 @@
       </div>
     </section>
     <hr>
+
     <!-- <div class="container text-center">
         <h1 class="text-white">Facturas Hechas</h1>
       </div>
@@ -337,27 +340,11 @@
       </div>
     </div>
   </div>
-  <!--  No. de documento interno
-  No. de Pedido
- -->
-
-  <!--   subtotal
-  descuento
-  total
-  dias de credito
-  total en letras -->
-  <script src="js/function.js"></script>
+  <script type="text/javascript" src="js/numeroLetras.js"></script>
+  <script src="js/global.js"></script>
+  <script src="js/factura.js"></script>
   <script src="js/popper.min.js"></script>
   <script src="js/bootstrap.min.js"></script>
-  <!--  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
-  </script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
-  </script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
-  </script> -->
 </body>
 
 </html>
