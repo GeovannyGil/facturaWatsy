@@ -9,29 +9,29 @@ const inputDireccionECliente = document.getElementById("direccionECliente");
 const verificarFacturasLocalStorage = () => {
   const facturasLS = JSON.parse(localStorage.getItem("facturas"));
   facturas = facturasLS || [];
-  /*   tableFacturas.innerHTML = "";
-  
-    facturas.forEach((detalle) => {
-      let fila = document.createElement("TR");
-      let fechaFormateada = detalle.fechaPedido.replace(/\D/g, ' ');
-      let aF = fechaFormateada.split(' ');
-      fila.setAttribute("id", "row" + detalle.noPedido);
-      fila.innerHTML = `<td>${detalle.noPedido}</td>
+
+  tableFacturas.innerHTML = "";
+  facturas.forEach((detalle) => {
+    let fila = document.createElement("TR");
+    let fechaFormateada = detalle.fechaPedido.replace(/\D/g, ' ');
+    let aF = fechaFormateada.split(' ');
+    fila.setAttribute("id", "row" + detalle.noPedido);
+    fila.innerHTML = `<td>${detalle.noPedido}</td>
                         <td>Factura de ${detalle.nombreCliente}</td>
                         <td>${aF[3] + ":" + aF[4] + " " + aF[2] + "/" + aF[1] + "/" + aF[0]}</td>
                         <td>${detalle.totalFinalF}</td>
                             `;
-      let tdAcciones = document.createElement("TD");
-      let btnGenPDF = document.createElement("button");
-      btnGenPDF.onclick = () => {
-        genPDF(detalle);
-      };
-      btnGenPDF.classList.add("btn", "btn-danger");
-      btnGenPDF.innerText = "PDF";
-      tdAcciones.appendChild(btnGenPDF);
-      fila.appendChild(tdAcciones);
-      tableFacturas.appendChild(fila);
-    }) */
+    let tdAcciones = document.createElement("TD");
+    let btnGenPDF = document.createElement("button");
+    btnGenPDF.onclick = () => {
+      genPDF(detalle);
+    };
+    btnGenPDF.classList.add("btn", "btn-danger");
+    btnGenPDF.innerText = "PDF";
+    tdAcciones.appendChild(btnGenPDF);
+    fila.appendChild(tdAcciones);
+    tableFacturas.appendChild(fila);
+  })
 };
 
 function guardarFactura() {
@@ -122,3 +122,4 @@ selectDpaDireccionE.onchange = () => {
 }
 
 llenarDepartamentos(selectDpaDireccionE, selectMunDireccionE);
+verificarFacturasLocalStorage();
