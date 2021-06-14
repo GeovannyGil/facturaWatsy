@@ -39,14 +39,13 @@ let inputCodigoP = document.getElementById("codigoP");
 //boton guardar
 const btnActualizar = document.getElementById("actualizar");
 const btnGuardar = document.getElementById("btnGenerarPDF");
-const btnImprimir = document.getElementById("btnImprimirPDF");
 //Variables Globales
 let subTotal = 0;
 let descuentoFinal = 0;
 let totalFinal = 0;
-let imprimir = "";
 //arreglos
 let cotizaciones = [];
+let facturas = [];
 let arregloDetalle = [];
 
 let arregloColaboradores = [
@@ -559,7 +558,6 @@ formProducto.onsubmit = (e) => {
 
   } else {
     btnGuardar.removeAttribute("disabled");
-    btnImprimir.removeAttribute("disabled");
     inputDescripcion.classList.remove("remarcar");
     inputCantidad.classList.remove("remarcar");
     inputPrecioUnitario.classList.remove("remarcar");
@@ -691,7 +689,6 @@ const eliminarProducto = (id) => {
   });
   if (arregloDetalle.length == 0) {
     btnGuardar.setAttribute("disabled", "disabled");
-    btnImprimir.setAttribute("disabled", "disabled");
   }
 };
 
@@ -738,10 +735,5 @@ llenarDepartamentos(selectDpaDireccion, selectMunDireccion);
 
 //Llamado de facturas
 btnGuardar.onclick = () => {
-  guardarFactura();
-};
-
-btnImprimir.onclick = () => {
-  imprimir = "si";
   guardarFactura();
 };

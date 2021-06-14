@@ -52,13 +52,11 @@ function guardarFactura() {
     inputFechaPedido.classList.remove("remarcar");
     inputFechaVencimiento.classList.remove("remarcar");
     btnGuardar.setAttribute("disabled", "disabled");
-    btnImprimir.setAttribute("disabled", "disabled");
     let objFactura = {
       noInterno: inputNoInterno.value,
       noPedido: inputNoPedido.value,
-      credito: inputCredito.value,
+      diasCredito: inputCredito.value,
       nota: inputNota.value,
-      imprimir: imprimir,
       nitCliente: inputNitCliente.value,
       nombreCliente: inputNombreCliente.value,
       telefonoCliente: inputTelefonoCliente.value,
@@ -102,7 +100,6 @@ function borra() {
   totalFinal = 0;
   inputSubTotal.value = subTotal;
   inputDescuentoTotal.value = descuentoFinal;
-  imprimir = "";
   inputSumaTotal.value = totalFinal;
   //Limpiar inputs
   inputNitCliente.value = "";

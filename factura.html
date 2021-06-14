@@ -22,9 +22,19 @@
   <script type="text/javascript" src="js/maxLength.js"></script>
 </head>
 
-<body class="bg-dark">
+<body class="bg-dark-editado">
   <header>
-    <nav class="navbar navbar-expand-lg navbar-light bg-dark-black fixed-top">
+    <div class="encabezado">
+      <div class="margen-logo">
+        <img src="img/miniLogo.png" alt="">
+        <div class="enlaces">
+          <a class="" href="http://localhost/facturacion/index.html">Inicio</a>
+          <a class="active" href="http://localhost/facturacion/factura.html">Facturas</a>
+          <a class="" href="http://localhost/facturacion/cotizacion.html">Cotizaciones</a>
+        </div>
+      </div>
+    </div>
+    <!--     <nav class="navbar navbar-expand-lg navbar-light bg-dark-black fixed-top">
       <a class="navbar-brand text-white" href="http://localhost/facturacion/index.html">Watsy</a>
       <button class="navbar-toggler bg-light " type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
         aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -39,10 +49,10 @@
             href="http://localhost/facturacion/cotizacion.html">Cotizaciones</a>
         </div>
       </div>
-    </nav>
+    </nav> -->
   </header>
   <main class=" container mt-5">
-    <h1 class="text-white pt-4 display-3">Facturas</h1>
+    <h1 class="text-white pt-4 display-3 font-poppins-h1">Facturas</h1>
     <div class="row">
       <!--    <div class="col-md-4 text-center">
         <img src="img/logo_negativo.png" class="my-4" height="135" alt="">
@@ -231,9 +241,7 @@
                   </form>
                   <button class="btn btn-outline-watsy btn-block font-weight-bold" disabled id="btnGenerarPDF">Generar
                     Factura</button>
-                  <button class="btn btn-outline-watsy btn-block font-weight-bold" disabled id="btnImprimirPDF">Imprimir
-                    Factura</button>
-                  <button type="button" class="btn btn-primary" onclick="prePDF()">ver</button>
+                  <!--                   <button type="button" class="btn btn-primary" onclick="prePDF()">ver</button> -->
                 </div>
               </div>
             </div>
@@ -243,7 +251,9 @@
       </div>
     </div>
     <hr>
-    <div id="preview-pane" style="height: 650px;position:relative; z-index:999"></div>
+    <!--     <div id="preview-pane" style="height: 650px;position:relative; z-index:999">
+
+    </div> -->
     <section class="row">
       <div class="col">
         <div class="table-responsive">

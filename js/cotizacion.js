@@ -27,13 +27,11 @@ function guardarFactura() {
     inputFechaPedido.classList.remove("remarcar");
     inputFechaVencimiento.classList.remove("remarcar");
     btnGuardar.setAttribute("disabled", "disabled");
-    btnImprimir.setAttribute("disabled", "disabled");
     let objCotizaciones = {
       noInterno: inputNoInterno.value,
       noPedido: inputNoPedido.value,
       diasCredito: inputCredito.value,
       descripcionTrabajo: inputDescripcionTrabajo.value,
-      imprimir: imprimir,
       nombreCliente: inputNombreCliente.value,
       telefonoCliente: inputTelefonoCliente.value,
       correoCliente: inputCorreoCliente.value,
@@ -57,7 +55,7 @@ function guardarFactura() {
     borra();
     arregloDetalle = [];
     redibujarTabla();
-    genPDFCotizacion(objCotizaciones);
+    formatearJSONCotizacion(objCotizaciones);
   }
 }
 
@@ -73,7 +71,6 @@ function borra() {
   totalFinal = 0;
   inputSubTotal.value = subTotal;
   inputDescuentoTotal.value = descuentoFinal;
-  imprimir = "";
   inputSumaTotal.value = totalFinal;
   //Limpiar inputs
   inputTelefonoCliente.value = "";
