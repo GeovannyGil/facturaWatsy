@@ -10,6 +10,7 @@ let fechaFormateada;
 let arrayFechaPedido = [];
 let arrayTelefono = [];
 let letras;
+
 function formatearJSON(datosFactura) {
   if (datosFactura['noInterno'] == "") {
     datosFactura['noInterno'] = "-";
@@ -178,15 +179,10 @@ function generarFactura(datosFactura) {
     for (let i in ob.descripcion) {
       conteoLetras = ob.descripcion.length;
     }
+
     pdf.text(String(ob.cant), 58, espacio, null, null, "center");
 
-    if (conteoLetras >= 75) {
-      split = pdf.splitTextToSize(ob.descripcion, 250);
-      pdf.text(96, espacio - 1, split);
-    } else {
-      split = ob.descripcion;
-      pdf.text(split, 96, espacio, null, null, "left");
-    }
+    pdf.text(ob.descripcion, 96, espacio, { maxWidth: 253, align: 'justify' });
 
     pdf.text("Q", 357, espacio, null, null, "center");
     pdf.text(ob.pUnitario, 388, espacio, null, null, "center");
@@ -197,8 +193,14 @@ function generarFactura(datosFactura) {
     pdf.text("Q", 518, espacio, null, null, "left");
     pdf.text(ob.total, 552, espacio, null, null, "center");
 
-    if (conteoLetras >= 75) {
-      espacio = espacio + 22;
+    if (conteoLetras >= 155) {
+      espacio = espacio + 33;
+    } else if (conteoLetras >= 90) {
+      console.log(ob.descripcion + " Tamaño mayor a 90");
+      espacio = espacio + 26;
+    } else if (conteoLetras >= 53) {
+      console.log(ob.descripcion + " Tamaño mayor a 155");
+      espacio = espacio + 20;
     } else {
       espacio = espacio + 14;
     }
@@ -224,9 +226,6 @@ function generarFactura(datosFactura) {
     split = pdf.splitTextToSize(datosFactura['nota'], 330);
     pdf.text(54, 672, split);
   }
-
-
-
 
   pdf.text(letras, 86, 659, null, null, "left");
 
@@ -394,6 +393,8 @@ function genPDFCotizacion(datosCotizacion) {
 
   pdf.setFontSize("8");
   let espacio = 426;
+  let conteoLetras = 0;
+
   for (ob of datosCotizacion['productos']) {
     //contar letras
     for (let i in ob.descripcion) {
@@ -401,13 +402,7 @@ function genPDFCotizacion(datosCotizacion) {
     }
     pdf.text(String(ob.cant), 58, espacio, null, null, "center");
 
-    if (conteoLetras >= 75) {
-      split = pdf.splitTextToSize(ob.descripcion, 270);
-      pdf.text(96, espacio - 1, split);
-    } else {
-      split = ob.descripcion;
-      pdf.text(split, 96, espacio, null, null, "left");
-    }
+    pdf.text(ob.descripcion, 96, espacio, { maxWidth: 253, align: 'justify' });
 
     pdf.text("Q", 357, espacio, null, null, "center");
     pdf.text(ob.pUnitario, 388, espacio, null, null, "center");
@@ -418,8 +413,12 @@ function genPDFCotizacion(datosCotizacion) {
     pdf.text("Q", 518, espacio, null, null, "left");
     pdf.text(ob.total, 552, espacio, null, null, "center");
 
-    if (conteoLetras >= 75) {
-      espacio = espacio + 22;
+    if (conteoLetras >= 155) {
+      espacio = espacio + 33;
+    } else if (conteoLetras >= 90) {
+      espacio = espacio + 26;
+    } else if (conteoLetras >= 53) {
+      espacio = espacio + 20;
     } else {
       espacio = espacio + 14;
     }

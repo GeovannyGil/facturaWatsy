@@ -1,9 +1,77 @@
 //encabezado
 const inputDescripcionTrabajo = document.getElementById("descripcionTrabajo");
 
+function verDatosDocumento(noPedido, datos) {
+  console.log("hola soy el numero de pedido numero: " + noPedido);
+  //Llenar los Datos
+  //Datos de encabezado
+  inputNoPedido.value = datos.noPedido;
+  inputNoInterno.value = datos.noInterno;
+  inputCredito.value = datos.diasCredito;
+  inputDescripcionTrabajo.value = datos.descripcionTrabajo;
+  //Datos del Cliente
+  inputTelefonoCliente.value = datos.telefonoCliente;
+  inputNombreCliente.value = datos.nombreCliente;
+  inputCorreoCliente.value = datos.correoCliente;
+  inputDireccionCliente.value = datos.direccionCliente;
+  buscarSelectDpa(selectDpaDireccion, datos.departamento, selectMunDireccion);
+  seleccionarInSelect(selectMunDireccion, datos.municipio);
+  seleccionarInSelect(selectColaborador, datos.colaborador);
+  inputCodigoCliente.value = datos.codigoCliente;
+  inputFechaPedido.value = datos.fechaPedido;
+  inputFechaVencimiento.value = datos.fechaVencimiento;
+  arregloDetalle = datos.productos;
+  redibujarTabla(arregloDetalle);
+  btnGuardar.removeAttribute("disabled");
+  inputCodigoP.value = buscarIdMaxProductos(arregloDetalle);
+  subTotal = parseFloat(datos.subTotalF);
+  descuentoFinal = parseFloat(datos.descuentoF);
+  totalFinal = parseFloat(datos.totalFinalF);
+  inputSubTotal.value = datos.subTotalF;
+  inputDescuentoTotal.value = datos.descuentoF;
+  inputSumaTotal.value = datos.totalFinalF;
+}
+
 const verificarCotizacionesLocalStorage = () => {
   const cotizacionesLS = JSON.parse(localStorage.getItem("cotizaciones"));
   cotizaciones = cotizacionesLS || [];
+
+  bodyTableDocuments.innerHTML = "";
+  cotizaciones.forEach((detalle) => {
+    let fila = document.createElement("TR");
+    let fechaFormateada = detalle.fechaPedido.replace(/\D/g, ' ');
+    let aF = fechaFormateada.split(' ');
+    fila.setAttribute("id", "row" + detalle.noPedido);
+    fila.innerHTML = `<td>${detalle.noPedido}</td>
+                        <td ><span class="badge badge-pill badge-secondary">Factura de ${detalle.nombreCliente}</span></td>
+                        <td>${aF[3] + ":" + aF[4] + " " + aF[2] + "/" + aF[1] + "/" + aF[0]}</td>
+                        <td>${detalle.totalFinalF}</td>
+                            `;
+    let tdAcciones = document.createElement("TD");
+    let btnGenPDF = document.createElement("button");
+    btnGenPDF.onclick = () => {
+      formatearJSONCotizacion(detalle);
+    };
+    btnGenPDF.classList.add("btn", "btn-danger");
+    btnGenPDF.innerText = "PDF";
+    btnGenPDF.setAttribute("data-dismiss", "modal");
+
+    let btnEditarDocumento = document.createElement("button");
+    btnEditarDocumento.onclick = () => {
+      verDatosDocumento(detalle.noPedido, detalle);
+    };
+    btnEditarDocumento.classList.add("btn", "bg-watsy", "text-white");
+    btnEditarDocumento.setAttribute("data-dismiss", "modal");
+    let iconoBtn = document.createElement("i");
+    iconoBtn.classList.add("fas", "fa-edit");
+    btnEditarDocumento.appendChild(iconoBtn);
+
+    tdAcciones.appendChild(btnGenPDF);
+    tdAcciones.appendChild(btnEditarDocumento);
+    fila.appendChild(tdAcciones);
+    bodyTableDocuments.appendChild(fila);
+  })
+
 };
 
 //Llamado de Funciones
@@ -66,6 +134,7 @@ function borra() {
   inputCredito.value = "";
   inputCodigoP.value = 0;
   //datos extras
+  arregloDetalle = [];
   subTotal = 0;
   descuentoFinal = 0;
   totalFinal = 0;
@@ -83,10 +152,15 @@ function borra() {
   inputFechaVencimiento.value = "";
 }
 
-//Para limitar los caracteres de lo que se escribe en los inputs
-/* $(function () {
-  $("#descripcionTrabajo").maxLength(840, {
-    showNumber: "#limit",
-    revert: true
-  });
-}); */
+//este es de cotizaciones
+$("#descripcionTrabajo").maxLength(840, {
+  showNumber: "#limiteDescripcion",
+  revert: true
+});
+
+//para cambiar de input
+inputTelefonoCliente.onkeyup = () => {
+  if (inputTelefonoCliente.value.length == 8) {
+    inputCorreoCliente.focus();
+  }
+};

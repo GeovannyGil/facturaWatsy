@@ -34,27 +34,78 @@
     </div>
   </header>
   <main class=" container mt-5">
-    <h1 class="text-white pt-4 display-3 font-poppins-h1">Facturas</h1>
-    <div class="row">
-      <div class="col-md-12 my-4">
-        <div class="row">
-          <div class="form-group col-md-4">
-            <label for="" class="text-white font-weight-bold">No.Pedido</label>
-            <input type="number" class="form-control" placeholder="00000" id="noPedido">
+    <div class="contentenedor-cabecera">
+      <h1 class="text-white mr-5 display-3 font-poppins-h1">Facturas</h1>
+      <!-- Large modal -->
+      <button type="button" class="btn bg-watsy text-white" data-toggle="modal"
+        data-target=".bd-example-modal-lg">Historial de
+        Facturas</button>
+    </div>
+    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Lista de Facturas</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
           </div>
-          <div class="form-group col-md-4">
-            <label for="" class="text-white font-weight-bold">No. Interno</label>
-            <input type="number" class="form-control" placeholder="0000" id="noInterno">
+          <div class="modal-body">
+            <section class="row">
+              <div class="col">
+                <div class="table-responsive">
+                  <table class="table text-center table-hover" id="tablaFacturas">
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>Descripción</th>
+                        <th>Fecha</th>
+                        <th>Total</th>
+                        <th>Acciones</th>
+                      </tr>
+                    </thead>
+                    <tbody id="bodyTableLocalStorage">
+
+                    </tbody>
+                  </table>
+                </div>
+
+              </div>
+            </section>
           </div>
-          <div class="form-group col-md-4">
-            <label for="" class="text-white font-weight-bold">Días Credito: </label>
-            <input type="number" class="form-control" placeholder="00" id="diasCredito">
-          </div>
-          <div class="form-group col-md-12 text-white">
-            <label for="exampleFormControlTextarea1" class="font-weight-bold">Nota de Factura</label>
-            <textarea class="form-control" id="nota" placeholder="Ingresa alguna nota" rows="1"></textarea>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
           </div>
         </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4 my-4">
+        <div class="row">
+          <div class="form-group col-md-12">
+            <label for="" class="text-white font-weight-bold"><i class="fas fa-file-alt"></i> No.Pedido</label>
+            <input type="number" class="form-control bg-oscuro" placeholder="00000" id="noPedido">
+          </div>
+          <div class="form-group col-md-6">
+            <label for="" class="text-white font-weight-bold"><i class="fas fa-list-ol"></i> No. Interno</label>
+            <input type="number" class="form-control bg-oscuro" placeholder="0000" id="noInterno">
+          </div>
+          <div class="form-group col-md-6">
+            <label for="" class="text-white font-weight-bold"><i class="fab fa-cc-amazon-pay"></i> Días Credito:
+            </label>
+            <input type="number" class="form-control bg-oscuro" placeholder="00" id="diasCredito">
+          </div>
+
+        </div>
+      </div>
+      <div class="form-group col-md-8 text-white">
+        <label for="exampleFormControlTextarea1" class="font-weight-bold"><i class="fas fa-align-justify"></i> Nota de
+          Factura</label>
+        <textarea class="form-control bg-oscuro" id="nota" placeholder="Ingresa alguna nota" rows="6"></textarea>
+        <p class="text-left"><span class="badge badge-pill badge-secondary" id="limiteNota">160</span> de 160
+          caracteres como limite</p>
       </div>
     </div>
     <div class="container px-0">
@@ -68,13 +119,15 @@
                 </div>
                 <div class="card-body">
                   <div class="row">
-                    <div class="form-group col-md-6">
-                      <label for="" class="font-weight-bold">NIT del Cliente</label>
-                      <input type="text" class="form-control" placeholder="NIT" id="nitCliente">
+                    <div class="form-group col-md-6 has-feedback">
+                      <label for="nitCliente" class="control-label font-weight-bold">Nit:</label>
+                      <input type="text" class="form-control" id="nitCliente" placeholder="Ingrese Nit" />
+                      <span class="badge badge-pill" id="nitCorrecto"></span>
                     </div>
                     <div class="form-group col-md-6">
                       <label for="" class="font-weight-bold">Teléfono</label>
-                      <input type="tel" class="form-control" placeholder="Ingrese el Teléfono" id="telefonoCliente">
+                      <input type="tel" class="form-control" placeholder="Ingrese el Teléfono" id="telefonoCliente"
+                        onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;">
                     </div>
                     <div class="form-group col-md-6">
                       <label for="" class="font-weight-bold">Nombre del Cliente</label>
@@ -200,6 +253,8 @@
                         <label for="exampleFormControlTextarea1" class="font-weight-bold">Descripción</label>
                         <textarea class="form-control" id="descripcion"
                           placeholder="Ingresa la descripción del producto" rows="3"></textarea>
+                        <p class="text-left"><span class="badge badge-pill badge-secondary"
+                            id="limiteDescripcionProducto">165</span> de 166 caracteres como limite</p>
                       </div>
                       <div class="form-group col-md-6">
                         <label for="" class="font-weight-bold">Descuento</label>
@@ -256,30 +311,7 @@
       </div>
     </section>
     <hr>
-    <div class="container text-center">
-      <h1 class="text-white">Facturas Hechas</h1>
-    </div>
-    <section class="row">
-      <div class="col">
-        <div class="table-responsive">
-          <table class="table text-center table-dark table-hover" id="tablaProductos">
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Descripción</th>
-                <th>Fecha</th>
-                <th>Total</th>
-                <th>Acciones</th>
-              </tr>
-            </thead>
-            <tbody id="bodyTableFacturas">
 
-            </tbody>
-          </table>
-        </div>
-
-      </div>
-    </section>
   </main>
   <br>
   </main>
@@ -304,6 +336,8 @@
             <label for="exampleFormControlTextarea1">Descripción</label>
             <textarea class="form-control" id="descripcionU" placeholder="Ingresa la descripción del producto"
               rows="3"></textarea>
+            <p class="text-left"><span class="badge badge-pill badge-secondary"
+                id="limiteDescripcionProductoU">165</span> de 166 caracteres como limite</p>
           </div>
           <div class="form-group col-md-12">
             <label for="">P. Unitario</label>

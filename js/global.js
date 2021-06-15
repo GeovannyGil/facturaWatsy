@@ -22,7 +22,7 @@ const inputPrecioUnitario = document.getElementById("precioUnitario");
 const inputDescuento = document.getElementById("descuento");
 const inputTotal = document.getElementById("total");
 const bodyTable = document.getElementById("bodyTable");
-const tableFacturas = document.getElementById("bodyTableFacturas");
+const bodyTableDocuments = document.getElementById("bodyTableLocalStorage");
 //Datos Producto Actualizar
 const inputCodigoPA = document.getElementById("codigoPA");
 const inputCantidadU = document.getElementById("cantidadU");
@@ -597,6 +597,7 @@ formProducto.onsubmit = (e) => {
 
     redibujarTabla();
     formProducto.reset();
+    document.getElementById("limiteDescripcionProducto").innerText = "165";
   }
 };
 
@@ -738,3 +739,54 @@ llenarDepartamentos(selectDpaDireccion, selectMunDireccion);
 btnGuardar.onclick = () => {
   guardarFactura();
 };
+
+//limitar caracteres
+
+$("#descripcion").maxLength(166, {
+  showNumber: "#limiteDescripcionProducto",
+  revert: true
+});
+
+$("#descripcionU").maxLength(166, {
+  showNumber: "#limiteDescripcionProductoU",
+  revert: true
+});
+
+$(inputTelefonoCliente).maxLength(9, {
+  /* showNumber: "#limiteNota", */
+  revert: true
+});
+
+
+//para buscar el id
+function buscarIdMaxProductos() {
+  let idMax = 0;
+  for (ob of arregloDetalle) {
+    //contar letras
+    if (ob.codigo > idMax) {
+      idMax = ob.codigo;
+    }
+  }
+  console.log("Codigo de producto mayor " + idMax);
+  return idMax;
+}
+//Generales para el historial de localStorage
+function seleccionarInSelect(InputSelect, datoBuscar) {
+  for (var i = 1; i < InputSelect.length; i++) {
+    if (InputSelect.options[i].text == datoBuscar) {
+      // seleccionamos el valor que coincide
+      InputSelect.selectedIndex = i;
+    }
+  }
+}
+
+function buscarSelectDpa(InputSelect, datoBuscar, InputSelectMun) {
+  for (var i = 1; i < InputSelect.length; i++) {
+    if (InputSelect.options[i].text == datoBuscar) {
+      // seleccionamos el valor que coincide
+      InputSelect.selectedIndex = i;
+      limpiarMunicipio(InputSelectMun);
+      ordenarMunicipio(datoBuscar, InputSelectMun);
+    }
+  }
+}

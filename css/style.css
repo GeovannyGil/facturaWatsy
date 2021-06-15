@@ -173,6 +173,54 @@ a.btnInicio.activeHover {
 }
 
 /*Estilo otros*/
+.contentenedor-cabecera {
+  display: flex;
+  align-items: center;
+  padding-top: 15px;
+}
+
+.card {
+  border: none;
+}
+
+.form-control.bg-oscuro {
+  color: white;
+  border: none;
+  background-color: #272727;
+  border: 3px solid #FF6600;
+}
+
+.form-control.bg-oscuro::placeholder {
+  color: white;
+}
+
+.form-control.bg-oscuro:focus {
+  background-color: transparent;
+  color: white;
+  /*   background-color: #fff; */
+  outline: 0;
+  box-shadow: 0 0 0 0.1rem #FF6600;
+}
+
+.inputValidated:focus {
+  outline: 0;
+  box-shadow: 0 0 0 0.1rem green;
+}
+
+.inputInvalidated:focus {
+  outline: 0;
+  box-shadow: 0 0 0 0.1rem red;
+}
+
+.table td,
+.table th {
+  border: none;
+
+}
+
+.contentenedor-cabecera h1 {
+  display: inline-block;
+}
 
 .contenedor-boton {
   align-items: center;

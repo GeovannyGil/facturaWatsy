@@ -41,52 +41,19 @@ function verDatosDocumento(noPedido, datos) {
   inputSumaTotal.value = datos.totalFinalF;
 }
 
-//para seleccionar el input
-function buscarIdMaxProductos() {
-  let idMax = 0;
-  for (ob of arregloDetalle) {
-    //contar letras
-    if (ob.codigo > idMax) {
-      idMax = ob.codigo;
-    }
-  }
-  console.log("Codigo de producto mayor " + idMax);
-  return idMax;
-}
-
-function seleccionarInSelect(InputSelect, datoBuscar) {
-  for (var i = 1; i < InputSelect.length; i++) {
-    if (InputSelect.options[i].text == datoBuscar) {
-      // seleccionamos el valor que coincide
-      InputSelect.selectedIndex = i;
-    }
-  }
-}
-
-function buscarSelectDpa(InputSelect, datoBuscar, InputSelectMun) {
-  for (var i = 1; i < InputSelect.length; i++) {
-    if (InputSelect.options[i].text == datoBuscar) {
-      // seleccionamos el valor que coincide
-      InputSelect.selectedIndex = i;
-      limpiarMunicipio(InputSelectMun);
-      ordenarMunicipio(datoBuscar, InputSelectMun);
-    }
-  }
-}
-
-
 const verificarFacturasLocalStorage = () => {
   const facturasLS = JSON.parse(localStorage.getItem("facturas"));
   facturas = facturasLS || [];
+  console.log(facturas);
 
-  tableFacturas.innerHTML = "";
+  bodyTableDocuments.innerHTML = "";
   facturas.forEach((detalle) => {
     let fila = document.createElement("TR");
     let fechaFormateada = detalle.fechaPedido.replace(/\D/g, ' ');
     let aF = fechaFormateada.split(' ');
     fila.setAttribute("id", "row" + detalle.noPedido);
     fila.innerHTML = `<td>${detalle.noPedido}</td>
-                        <td>Factura de ${detalle.nombreCliente}</td>
+                        <td ><span class="badge badge-pill badge-secondary">Factura de ${detalle.nombreCliente}</span></td>
                         <td>${aF[3] + ":" + aF[4] + " " + aF[2] + "/" + aF[1] + "/" + aF[0]}</td>
                         <td>${detalle.totalFinalF}</td>
                             `;
@@ -95,20 +62,24 @@ const verificarFacturasLocalStorage = () => {
     btnGenPDF.onclick = () => {
       formatearJSON(detalle);
     };
-
     btnGenPDF.classList.add("btn", "btn-danger");
     btnGenPDF.innerText = "PDF";
+    btnGenPDF.setAttribute("data-dismiss", "modal");
+
     let btnEditarDocumento = document.createElement("button");
     btnEditarDocumento.onclick = () => {
       verDatosDocumento(detalle.noPedido, detalle);
     };
-    btnEditarDocumento.classList.add("btn", "btn-success");
-    btnEditarDocumento.innerText = "Editar Datos";
+    btnEditarDocumento.classList.add("btn", "bg-watsy", "text-white");
+    btnEditarDocumento.setAttribute("data-dismiss", "modal");
+    let iconoBtn = document.createElement("i");
+    iconoBtn.classList.add("fas", "fa-edit");
+    btnEditarDocumento.appendChild(iconoBtn);
 
     tdAcciones.appendChild(btnGenPDF);
     tdAcciones.appendChild(btnEditarDocumento);
     fila.appendChild(tdAcciones);
-    tableFacturas.appendChild(fila);
+    bodyTableDocuments.appendChild(fila);
   })
 };
 
@@ -202,3 +173,80 @@ selectDpaDireccionE.onchange = () => {
 
 llenarDepartamentos(selectDpaDireccionE, selectMunDireccionE);
 verificarFacturasLocalStorage();
+
+//para cambiar de input
+inputTelefonoCliente.onkeyup = () => {
+  if (inputTelefonoCliente.value.length == 8) {
+    inputNombreCliente.focus();
+  }
+};
+
+function nitIsValid(nit) {
+  if (!nit) {
+    return true;
+  }
+
+  var nitRegExp = new RegExp('^[0-9]+(-?[0-9kK])?$');
+
+  if (!nitRegExp.test(nit)) {
+    return false;
+  }
+
+  nit = nit.replace(/-/, '');
+  var lastChar = nit.length - 1;
+  var number = nit.substring(0, lastChar);
+  var expectedCheker = nit.substring(lastChar, lastChar + 1).toLowerCase();
+
+  var factor = number.length + 1;
+  var total = 0;
+
+  for (var i = 0; i < number.length; i++) {
+    var character = number.substring(i, i + 1);
+    var digit = parseInt(character, 10);
+
+    total += (digit * factor);
+    factor = factor - 1;
+  }
+
+  var modulus = (11 - (total % 11)) % 11;
+  var computedChecker = (modulus == 10 ? "k" : modulus.toString());
+
+  return expectedCheker === computedChecker;
+}
+//para validar el numero de caracteres
+
+$(function () {
+
+  //para validad el numero de NIT
+  $('#nitCliente').bind('change paste keyup', function (e) {
+    var $this = $(this);
+    var $parent = $this.parent();
+    var $next = $this.next();
+    var nit = $this.val();
+
+    if (nit && nitIsValid(nit)) {
+      $('#nitCliente').addClass('inputValidated');
+      $('#nitCliente').removeClass('inputInvalidated');
+      $("#nitCorrecto").text("Nit Correcto");
+      $("#nitCorrecto").removeClass("badge-danger");
+
+      $("#nitCorrecto").addClass("badge-success");
+    } else if (nit) {
+      $("#nitCorrecto").text("Nit Incorrecto");
+      $("#nitCorrecto").removeClass("badge-success");
+      $("#nitCorrecto").addClass("badge-danger");
+      $('#nitCliente').addClass('inputInvalidated');
+      $('#nitCliente').removeClass('inputValidated');
+    } else {
+      $("#nitCorrecto").text("");
+      $('#nitCliente').removeClass('inputInvalidated');
+      $('#nitCliente').removeClass('inputValidated');
+    }
+  });
+
+  $("#nota").maxLength(160, {
+    showNumber: "#limiteNota",
+    revert: true
+  });
+
+});
