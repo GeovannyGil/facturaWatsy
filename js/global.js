@@ -64,6 +64,9 @@ let arregloColaboradores = [
   }, {
     id: 5,
     nombre: "José Solloy"
+  }, {
+    id: 6,
+    nombre: "Erick Vargas"
   }
 ];
 
