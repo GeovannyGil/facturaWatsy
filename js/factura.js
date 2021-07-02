@@ -11,7 +11,7 @@ function verDatosDocumento(noPedido, datos) {
   //Llenar los Datos
   //Datos de encabezado
   inputNoPedido.value = datos.noPedido;
-  inputNoInterno.value = datos.noInterno;
+  /*   inputNoInterno.value = datos.noInterno; */
   inputCredito.value = datos.diasCredito;
   inputNota.value = datos.nota;
   //Datos del Cliente
@@ -102,7 +102,7 @@ function guardarFactura() {
     inputFechaVencimiento.classList.remove("remarcar");
     btnGuardar.setAttribute("disabled", "disabled");
     let objFactura = {
-      noInterno: inputNoInterno.value,
+      /* noInterno: inputNoInterno.value, */
       noPedido: inputNoPedido.value,
       diasCredito: inputCredito.value,
       nota: inputNota.value,
@@ -139,7 +139,7 @@ function guardarFactura() {
 
 function borra() {
   inputNoPedido.value = "";
-  inputNoInterno.value = "";
+  /*   inputNoInterno.value = ""; */
   inputCredito.value = "";
   inputNota.value = "";
   inputCodigoP.value = 0;

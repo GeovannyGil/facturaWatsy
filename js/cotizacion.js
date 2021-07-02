@@ -6,7 +6,7 @@ function verDatosDocumento(noPedido, datos) {
   //Llenar los Datos
   //Datos de encabezado
   inputNoPedido.value = datos.noPedido;
-  inputNoInterno.value = datos.noInterno;
+  /*   inputNoInterno.value = datos.noInterno; */
   inputCredito.value = datos.diasCredito;
   inputDescripcionTrabajo.value = datos.descripcionTrabajo;
   //Datos del Cliente
@@ -96,7 +96,7 @@ function guardarFactura() {
     inputFechaVencimiento.classList.remove("remarcar");
     btnGuardar.setAttribute("disabled", "disabled");
     let objCotizaciones = {
-      noInterno: inputNoInterno.value,
+      /* noInterno: inputNoInterno.value, */
       noPedido: inputNoPedido.value,
       diasCredito: inputCredito.value,
       descripcionTrabajo: inputDescripcionTrabajo.value,
@@ -129,7 +129,7 @@ function guardarFactura() {
 
 function borra() {
   inputNoPedido.value = "";
-  inputNoInterno.value = "";
+  /*  inputNoInterno.value = ""; */
   inputDescripcionTrabajo.value = "";
   inputCredito.value = "";
   inputCodigoP.value = 0;

@@ -1,5 +1,5 @@
 //DAtos de encabezado
-const inputNoInterno = document.getElementById("noInterno");
+/* const inputNoInterno = document.getElementById("noInterno"); */
 const inputNoPedido = document.getElementById("noPedido");
 const inputCredito = document.getElementById("diasCredito");
 //Datos Generales del Cliente

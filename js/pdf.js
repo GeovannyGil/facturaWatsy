@@ -12,9 +12,10 @@ let arrayTelefono = [];
 let letras;
 
 function formatearJSON(datosFactura) {
-  if (datosFactura['noInterno'] == "") {
-    datosFactura['noInterno'] = "-";
-  }
+  /*   if (datosFactura['noInterno'] == "") {
+      datosFactura['noInterno'] = "-";
+    } */
+
   if (datosFactura['noPedido'] == "") {
     datosFactura['noPedido'] = "---";
   }
@@ -22,7 +23,7 @@ function formatearJSON(datosFactura) {
   arrayFechaPedido = fechaFormateada.split(' ');
 
   if (datosFactura['codigoCliente'] == "") {
-    datosFactura['codigoCliente'] = "-";
+    datosFactura['codigoCliente'] = "";
   }
 
   //Cliente
@@ -35,7 +36,7 @@ function formatearJSON(datosFactura) {
   }
 
   if (datosFactura['direccionCliente'] == "") {
-    datosFactura['direccionCliente'] = "Ciudad";
+    datosFactura['direccionCliente'] = "-";
   }
 
   if (datosFactura['telefonoCliente'] == "") {
@@ -58,7 +59,7 @@ function formatearJSON(datosFactura) {
   }
 
   if (datosFactura['direccionECliente'] == "") {
-    datosFactura['direccionECliente'] = "Ciudad";
+    datosFactura['direccionECliente'] = "-";
   }
 
   if (datosFactura["diasCredito"] == "") {
@@ -123,7 +124,7 @@ function generarFactura(datosFactura) {
 
   pdf.setFontSize("7");
 
-  pdf.text(datosFactura['noInterno'], 568, 36, null, null, "left");
+  /*   pdf.text(datosFactura['noInterno'], 568, 36, null, null, "left"); */
 
   //propiedades de texto
   pdf.setFontSize("11");
@@ -161,12 +162,28 @@ function generarFactura(datosFactura) {
   //Cliente
   pdf.text(datosFactura['nitCliente'], 96, 297, null, null, "left");
   pdf.text(datosFactura['nombreCliente'], 96, 314, null, null, "left");
-  pdf.text(datosFactura['direccionCliente'], 96, 331, null, null, "left");
   pdf.text(datosFactura['telefonoCliente'], 405, 297, null, null, "left");
-  pdf.text(datosFactura['municipio'] + ", " + datosFactura['departamento'], 96, 342, null, null, "left");
+
+  /* pdf.text(datosFactura['direccionCliente'], 96, 331, null, null, "left"); */
+  if (datosFactura['direccionCliente'].length > 38) {
+    pdf.setFontSize("7");
+    pdf.text(datosFactura['direccionCliente'], 96, 329, { maxWidth: 195, align: 'justify' });
+    pdf.text(datosFactura['municipio'] + ", " + datosFactura['departamento'], 96, 346, null, null, "left");
+  } else {
+    pdf.text(datosFactura['direccionCliente'], 96, 331, null, null, "left");
+    pdf.text(datosFactura['municipio'] + ", " + datosFactura['departamento'], 96, 342, null, null, "left");
+  }
+
+  pdf.setFontSize("10");
   pdf.text(datosFactura['correoCliente'], 405, 313, null, null, "left");
-  pdf.text(datosFactura['direccionECliente'], 405, 331, null, null, "left");
-  pdf.text(datosFactura['municipioE'] + ", " + datosFactura['departamentoE'], 405, 342, null, null, "left");
+  if (datosFactura['direccionECliente'].length > 38) {
+    pdf.setFontSize("7");
+    pdf.text(datosFactura['direccionECliente'], 405, 329, { maxWidth: 195, align: 'justify' });
+    pdf.text(datosFactura['municipioE'] + ", " + datosFactura['departamentoE'], 405, 346, null, null, "left");
+  } else {
+    pdf.text(datosFactura['direccionECliente'], 405, 331, null, null, "left");
+    pdf.text(datosFactura['municipioE'] + ", " + datosFactura['departamentoE'], 405, 342, null, null, "left");
+  }
 
   pdf.setFontSize("8");
   /*     pdf.setFont('Courier'); */
@@ -238,9 +255,9 @@ function generarFactura(datosFactura) {
 }
 
 function formatearJSONCotizacion(datosCotizacion) {
-  if (datosCotizacion['noInterno'] == "") {
-    datosCotizacion['noInterno'] = "-";
-  }
+  /*  if (datosCotizacion['noInterno'] == "") {
+     datosCotizacion['noInterno'] = "-";
+   } */
   if (datosCotizacion['noPedido'] == "") {
     datosCotizacion['noPedido'] = "---";
   }
@@ -248,7 +265,7 @@ function formatearJSONCotizacion(datosCotizacion) {
   arrayFechaPedido = fechaFormateada.split(' ');
 
   if (datosCotizacion['codigoCliente'] == "") {
-    datosCotizacion['codigoCliente'] = "-";
+    datosCotizacion['codigoCliente'] = "";
   }
 
   if (datosCotizacion['nombreCliente'] == "") {
@@ -256,7 +273,7 @@ function formatearJSONCotizacion(datosCotizacion) {
   }
 
   if (datosCotizacion['direccionCliente'] == "") {
-    datosCotizacion['direccionCliente'] = "Ciudad";
+    datosCotizacion['direccionCliente'] = "-";
   }
 
   if (datosCotizacion['telefonoCliente'] == "") {
@@ -341,7 +358,7 @@ function genPDFCotizacion(datosCotizacion) {
 
   pdf.setFontSize("7");
 
-  pdf.text(datosCotizacion['noInterno'], 568, 36, null, null, "left");
+  /*   pdf.text(datosCotizacion['noInterno'], 568, 36, null, null, "left"); */
 
   //propiedades de texto
   pdf.setFontSize("11");
@@ -378,11 +395,17 @@ function genPDFCotizacion(datosCotizacion) {
 
   pdf.text(datosCotizacion['correoCliente'], 96, 228, null, null, "left");
 
-  pdf.text(datosCotizacion['direccionCliente'], 96, 245, null, null, "left");
+  if (datosCotizacion['direccionCliente'].length > 38) {
+    pdf.setFontSize("7");
+    pdf.text(datosCotizacion['direccionCliente'], 96, 242, { maxWidth: 195, align: 'justify' });
+    pdf.text(datosCotizacion['municipio'] + ", " + datosCotizacion['departamento'], 96, 261, null, null, "left");
+  } else {
+    pdf.text(datosCotizacion['direccionCliente'], 96, 245, null, null, "left");
+    pdf.text(datosCotizacion['municipio'] + ", " + datosCotizacion['departamento'], 96, 257, null, null, "left");
+  }
 
 
-  pdf.text(datosCotizacion['municipio'] + ", " + datosCotizacion['departamento'], 96, 257, null, null, "left");
-
+  pdf.setFontSize("10");
   if (datosCotizacion['descripcionTrabajo'] == "") {
     split = pdf.splitTextToSize("No se acepta ningun reclamo en un periodo mayor a 30 días calendario a la fecha de emisión", 544);
     pdf.text(35, 303, split);
