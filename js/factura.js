@@ -174,12 +174,27 @@ selectDpaDireccionE.onchange = () => {
 llenarDepartamentos(selectDpaDireccionE, selectMunDireccionE);
 verificarFacturasLocalStorage();
 
-//para cambiar de input
-inputTelefonoCliente.onkeyup = () => {
-  if (inputTelefonoCliente.value.length == 8) {
-    inputNombreCliente.focus();
+
+/* inputTelefonoCliente.onchange = () => {
+  if (inputTelefonoCliente.value.length > 8) {
+    let arrayTelefono = inputTelefonoCliente.value.split(" ");
+    inputTelefonoCliente.value = arrayTelefono[0] + arrayTelefono[1];
+  }
+}; */
+
+inputTelefonoCliente.onchange = () => {
+  let arrayTelefono = inputTelefonoCliente.value.split(" ");
+  inputTelefonoCliente.value = "";
+  for (var i = 0; i < arrayTelefono.length; i++) {
+    inputTelefonoCliente.value += (arrayTelefono[i]).toString();
+    console.log(i);
   }
 };
+/* inputTelefonoCliente.onchange = () => {
+  if (inputTelefonoCliente.value.length == 9) {
+    inputNombreCliente.focus();
+  }
+}; */
 
 function nitIsValid(nit) {
   if (!nit) {

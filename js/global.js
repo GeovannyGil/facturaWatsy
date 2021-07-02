@@ -754,12 +754,12 @@ $("#descripcionU").maxLength(166, {
   showNumber: "#limiteDescripcionProductoU",
   revert: true
 });
-
-$(inputTelefonoCliente).maxLength(9, {
-  /* showNumber: "#limiteNota", */
+/*
+$(inputTelefonoCliente).maxLength(10, {
+   showNumber: "#limiteNota", 
   revert: true
 });
-
+*/
 
 //para buscar el id
 function buscarIdMaxProductos() {

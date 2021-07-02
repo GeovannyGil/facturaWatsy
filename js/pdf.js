@@ -161,7 +161,15 @@ function generarFactura(datosFactura) {
 
   //Cliente
   pdf.text(datosFactura['nitCliente'], 96, 297, null, null, "left");
-  pdf.text(datosFactura['nombreCliente'], 96, 314, null, null, "left");
+
+  if (datosFactura['nombreCliente'].length > 33) {
+    pdf.setFontSize("7");
+    pdf.text(datosFactura['nombreCliente'], 96, 314, null, null, "left");
+  } else {
+    pdf.setFontSize("10");
+    pdf.text(datosFactura['nombreCliente'], 96, 314, null, null, "left");
+  }
+
   pdf.text(datosFactura['telefonoCliente'], 405, 297, null, null, "left");
 
   /* pdf.text(datosFactura['direccionCliente'], 96, 331, null, null, "left"); */
@@ -170,17 +178,27 @@ function generarFactura(datosFactura) {
     pdf.text(datosFactura['direccionCliente'], 96, 329, { maxWidth: 195, align: 'justify' });
     pdf.text(datosFactura['municipio'] + ", " + datosFactura['departamento'], 96, 346, null, null, "left");
   } else {
+    pdf.setFontSize("10");
     pdf.text(datosFactura['direccionCliente'], 96, 331, null, null, "left");
     pdf.text(datosFactura['municipio'] + ", " + datosFactura['departamento'], 96, 342, null, null, "left");
   }
 
-  pdf.setFontSize("10");
-  pdf.text(datosFactura['correoCliente'], 405, 313, null, null, "left");
+
+
+  if (datosFactura['correoCliente'].length > 28) {
+    pdf.setFontSize("7");
+    pdf.text(datosFactura['correoCliente'], 405, 313, null, null, "left");
+  } else {
+    pdf.setFontSize("10");
+    pdf.text(datosFactura['correoCliente'], 405, 313, null, null, "left");
+  }
+
   if (datosFactura['direccionECliente'].length > 38) {
     pdf.setFontSize("7");
     pdf.text(datosFactura['direccionECliente'], 405, 329, { maxWidth: 195, align: 'justify' });
     pdf.text(datosFactura['municipioE'] + ", " + datosFactura['departamentoE'], 405, 346, null, null, "left");
   } else {
+    pdf.setFontSize("10");
     pdf.text(datosFactura['direccionECliente'], 405, 331, null, null, "left");
     pdf.text(datosFactura['municipioE'] + ", " + datosFactura['departamentoE'], 405, 342, null, null, "left");
   }
@@ -388,18 +406,29 @@ function genPDFCotizacion(datosCotizacion) {
 
 
   //Cliente
+  if (datosCotizacion['nombreCliente'].length > 35) {
+    pdf.setFontSize("7");
+    pdf.text(datosCotizacion['nombreCliente'], 96, 196, null, null, "left");
+  } else {
+    pdf.setFontSize("10");
+    pdf.text(datosCotizacion['nombreCliente'], 96, 196, null, null, "left");
+  }
 
-  pdf.text(datosCotizacion['nombreCliente'], 96, 196, null, null, "left");
 
   pdf.text(datosCotizacion['telefonoCliente'], 96, 212, null, null, "left");
-
-  pdf.text(datosCotizacion['correoCliente'], 96, 228, null, null, "left");
+  if (datosCotizacion['correoCliente'].length > 28) {
+    pdf.setFontSize("7");
+    pdf.text(datosCotizacion['correoCliente'], 96, 228, null, null, "left");
+  } else {
+    pdf.text(datosCotizacion['correoCliente'], 96, 228, null, null, "left");
+  }
 
   if (datosCotizacion['direccionCliente'].length > 38) {
     pdf.setFontSize("7");
     pdf.text(datosCotizacion['direccionCliente'], 96, 242, { maxWidth: 195, align: 'justify' });
     pdf.text(datosCotizacion['municipio'] + ", " + datosCotizacion['departamento'], 96, 261, null, null, "left");
   } else {
+    pdf.setFontSize("10");
     pdf.text(datosCotizacion['direccionCliente'], 96, 245, null, null, "left");
     pdf.text(datosCotizacion['municipio'] + ", " + datosCotizacion['departamento'], 96, 257, null, null, "left");
   }

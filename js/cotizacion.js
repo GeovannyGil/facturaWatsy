@@ -158,9 +158,18 @@ $("#descripcionTrabajo").maxLength(840, {
   revert: true
 });
 
-//para cambiar de input
+
+inputTelefonoCliente.onchange = () => {
+  let arrayTelefono = inputTelefonoCliente.value.split(" ");
+  inputTelefonoCliente.value = "";
+  for (var i = 0; i < arrayTelefono.length; i++) {
+    inputTelefonoCliente.value += (arrayTelefono[i]).toString();
+  }
+};
+
+/* //para cambiar de input
 inputTelefonoCliente.onkeyup = () => {
   if (inputTelefonoCliente.value.length == 8) {
     inputCorreoCliente.focus();
   }
-};
+}; */
