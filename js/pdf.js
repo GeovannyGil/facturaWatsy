@@ -1,6 +1,6 @@
 //Leer el archivo de fuente de poppins en base64
 let archivoTXT = new XMLHttpRequest();
-let fileRuta = 'http://localhost/facturacion/font/fontPoppins.txt';
+let fileRuta = 'https://geovannygil.github.io/facturaWatsy/font/fontPoppins.txt';
 archivoTXT.open("GET", fileRuta, false);
 archivoTXT.send(null);
 const poppins = archivoTXT.responseText;
@@ -119,7 +119,7 @@ function generarFactura(datosFactura) {
   var height = pdf.internal.pageSize.getHeight();
 
   var image = new Image();
-  image.src = 'http://localhost/facturacion/img/factura.jpg';
+  image.src = 'https://geovannygil.github.io/facturaWatsy/img/factura.jpg';
   pdf.addImage(image, 'JPG', 0, 0, width, height);
 
   pdf.setFontSize("7");
@@ -369,7 +369,7 @@ function genPDFCotizacion(datosCotizacion) {
 
   var image = new Image();
 
-  image.src = 'http://localhost/facturacion/img/cotizacion.jpg';
+  image.src = 'https://geovannygil.github.io/facturaWatsy/img/cotizacion.jpg';
 
   pdf.addImage(image, 'JPG', 0, 0, width, height);
 
